@@ -29,6 +29,9 @@ this.formatTagInputNumber = function (typeCurrency) {
     $("#ExchangeRate").formatOnlyNumber();
     $('table.products tbody input._number')
         .each(function (i, item) {
+            console.log(` formatTagInputNumber Class ` + $(item).attr('class')  + '   val- '  +  $(item).val() )
+
+            if ($(this).val() =="" ) return
             fnInitialFormatNumber(this);
             if( !  (BteGlobal.IS_EDIT ||  BteGlobal.IS_SIGN_REPLACE_TOKEN ) ){
                 $(this).parents('tr:first').find('input.amount').trigger('change');
