@@ -1,4 +1,7 @@
 console.log('DEBUG LOAD')
+if(location.pathname == 'AdJust/CreateAdJustInvWithToken'){
+    $('#VATRateItem').val($('#VATRate').val() ) 
+}
 
 function checkINFO(){
     console.log('INV_TYPE = ' + $('#INV_TYPE').val())
