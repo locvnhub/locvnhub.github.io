@@ -1,5 +1,5 @@
 console.log('DEBUG LOAD')
-if(location.pathname == 'AdJust/CreateAdJustInvWithToken'){
+if(location.pathname == '/AdJust/CreateAdJustInvWithToken'){
     $('#VATRateItem').val($('#VATRate').val() ) 
 }
 
