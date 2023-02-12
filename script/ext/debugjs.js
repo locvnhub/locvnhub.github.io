@@ -13,8 +13,16 @@ checkINFO()
 //--- /Validate Check Mã số thuế
 this.submit = function () {
     checkINFO()
+    var olMount = $('#OldAmount').val().FormatNumUK()
+    var newAmount =  $('#Amount').val().FormatNumUK()
+    var newTotla = olMount + newAmount
 
-    var VNPT_localization = localStorage.getItem("VNPT_localization"); 
+    var confimOK = confirm("Bạn đang chắc chắc thực hiện điều chỉnh hóa đơn với tổng tiền 2 tờ như sau  : "+ olMount +' + '+ newAmount + ' = '+newTotla )
+        if(!confimOK){
+            return
+        }
+        
+  var VNPT_localization = localStorage.getItem("VNPT_localization"); 
 
     var check = 0;
     $("#VatAmount0").val("0");
