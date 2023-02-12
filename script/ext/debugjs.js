@@ -99,7 +99,7 @@ this.submit = function () {
 
     if ( $("#Total").val().indexOf("-") >= 0 
         && $('#INV_TYPE').val() != "3"
-        && location.pathname != 'AdJust/CreateAdJustInvWithToken'
+        && location.pathname != '/AdJust/CreateAdJustInvWithToken'
        ) {
         var msg_TotalAmountNegative = "Xin lỗi, hóa đơn có giá trị âm [Tổng tiền hóa đơn], chưa thể phát sinh giao dịch.";
         if (VNPT_localization === "en") {
