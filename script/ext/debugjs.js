@@ -1,9 +1,16 @@
 console.log('DEBUG LOAD')
 
+function checkINFO(){
+    console.log('INV_TYPE = ' + $('#INV_TYPE').val())
+    console.log('TYPE = ' + $('#type').val())
+}
 
+checkINFO()
 
 //--- /Validate Check Mã số thuế
 this.submit = function () {
+    checkINFO()
+
     var VNPT_localization = localStorage.getItem("VNPT_localization"); 
 
     var check = 0;
