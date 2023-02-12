@@ -2,6 +2,51 @@ console.log('DEBUG LOAD')
 
 
 
+this.setAmountInWords = function (_vatrate) {
+  
+    var totalNum = $("#Total").val() || "0"
+    var VATkhac = $('#VATRateF').val() || "0"
+        VATkhac = VATkhac.FormatNumUK()
+        totalNum  = totalNum.FormatNumUK()
+        totalNumABS  = Math.abs(totalNum)
+ 
+     if(totalNum == 0 ){
+          $("#Amount").val(0).attr("value", 0);
+          $("#VATAmount").val("0");
+          $("#AmountInWords").val("Không đồng")
+         return totalNum;
+     } 
+     
+         var _vatamount = 0; 
+         var _amount = 0; 
+         _vatrate = parseFloat(_vatrate)
+        if(_vatrate == -99){
+            _vatamount = parseFloat( ((totalNum * VATkhac) / 100).toFixed(BteGlobal.ROUND_TOTAL) )
+            _amount = (totalNum + _vatamount);
+        }
+        else if (_vatrate > 0) { 
+             _vatamount = parseFloat( ((totalNum * _vatrate) / 100).toFixed(BteGlobal.ROUND_TOTAL) )
+             _amount = (totalNum + _vatamount);
+         } else {
+             $("#VATAmount").val("0");
+             _amount = totalNum;
+         } 
+         var amountF = parseFloat(_amount.toFixed(BteGlobal.ROUND_TOTAL)) 
+ 
+         if ($('#INV_TYPE').val() == "3" || (amountF < 0 && location.pathname == '/AdJust/CreateAdJustInvWithToken') ) {
+            //   amountF = amountF  * -1
+            //   _vatamount = parseFloat(_vatamount) * -1
+             $("#AmountInWords").val("Giảm " + Math.abs(amountF).ReadNumber(typeCurrency).replace(/\s\s+/g, ' ').toLowerCase());
+         } else{
+               $("#AmountInWords").val(parseFloat(amountF).ReadNumber(typeCurrency).replace(/\s\s+/g, ' '));
+         } 
+ 
+         $("#VATAmount").val(_vatamount.format(0, 3, typeCurrency));
+         $("#Amount").val(amountF.format(0, 3, typeCurrency)).attr("value", amountF.format(0, 3, typeCurrency));  
+ };
+
+ 
+
 this.convertAmount = function () {
     var _tyGia;
     var strTyGia = $("#ExchangeRate").val().FormatNumUK();
