@@ -12,6 +12,7 @@ checkINFO()
 
 //--- /Validate Check Mã số thuế
 this.submit = function () {
+    console.log(`SUBMIT`);
     checkINFO()
     var olMount = $('#OldAmount').val().FormatNumUK()
     var newAmount =  $('#Amount').val().FormatNumUK()
@@ -110,7 +111,7 @@ this.submit = function () {
     }
 
     if ( $("#Total").val().indexOf("-") >= 0 
-        && $('#INV_TYPE').val() != "3"
+        && $('#type').val() != "3"
         && location.pathname != '/AdJust/CreateAdJustInvWithToken'
        ) {
         var msg_TotalAmountNegative = "Xin lỗi, hóa đơn có giá trị âm [Tổng tiền hóa đơn], chưa thể phát sinh giao dịch.";
@@ -132,7 +133,7 @@ this.submit = function () {
         }
     }
 
-    var type = $('#INV_TYPE').val();
+    var type = $('#type').val();
     var amount = $('#Amount').val().FormatNumUK();
     var oldAmount = $('#OldAmount').val();
     if ("3" == type && oldAmount > 0) {
@@ -150,7 +151,7 @@ this.submit = function () {
     }
 
     var vatAmountLst  = [ 'VatAmount0', 'VatAmount5', 'VatAmount10', 'GrossValue', 'GrossValue0', 'GrossValue5', 'GrossValue10', 'GrossValueNonTax', 'VATAMOUNTOTHER', 'GROSSVALUEOTHER', 'VatAmount8', 'GrossValue8' ]
-    if($('#INV_TYPE').val() ==  "3"){
+    if($('#type').val() ==  "3"){
         vatAmountLst.forEach(function(x){
           var val =  $("#"+ x  ).val()
           if(val && val.FormatNumUK() > 0 ){
@@ -246,7 +247,7 @@ this.setAmountInWords = function (_vatrate) {
          } 
          var amountF = parseFloat(_amount.toFixed(BteGlobal.ROUND_TOTAL)) 
  
-         if ($('#INV_TYPE').val() == "3" || (amountF < 0 && location.pathname == '/AdJust/CreateAdJustInvWithToken') ) {
+         if ($('#type').val() == "3" || (amountF < 0 && location.pathname == '/AdJust/CreateAdJustInvWithToken') ) {
             //   amountF = amountF  * -1
             //   _vatamount = parseFloat(_vatamount) * -1
              $("#AmountInWords").val("Giảm " + Math.abs(amountF).ReadNumber(typeCurrency).replace(/\s\s+/g, ' ').toLowerCase());
@@ -273,7 +274,7 @@ this.convertAmount = function () {
         var _amount = parseFloat($("#Amount").val().FormatNumUK());
         var _TongSoTien = parseFloat((_amount * _tyGia).toFixed() ); 
 
-        if($('INV_TYPE').val() == "3"){
+        if($('#type').val() == "3"){
             $("#ConvertedAmount").val('-'+_TongSoTien.format(0, 3, "USD"));
         }else 
         $("#ConvertedAmount").val(_TongSoTien.format(0, 3, "USD"));
@@ -328,7 +329,7 @@ this.readAfterAmountChanged = function () {
     }
     var _amount = Math.abs(_totalamount) + Math.abs(_vatamount); 
 
-    if($('#INV_TYPE').val()=="3"){
+    if($('#type').val()=="3"){
           $('#AmountInWords').val("Giảm " + Math.abs(parseFloat(_amount)) .ReadNumber(typeCurrency).replace(/\s\s+/g, ' ').toLowerCase()   );
           _amount = _amount * -1
         }else {
