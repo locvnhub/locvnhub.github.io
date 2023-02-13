@@ -17,9 +17,10 @@ this.submit = function () {
     var newAmount =  $('#Amount').val().FormatNumUK()
     var newTotla = olMount + newAmount
 
-    var confimOK = confirm("Bạn đang chắc chắc thực hiện điều chỉnh hóa đơn với tổng tiền 2 tờ như sau: hóa đơn cũ "+ olMount +' + hóa đơn mới ('+ newAmount + ') = '+newTotla )
-        if(!confimOK){
-            return
+    var confimOK = confirm("Bạn đang chắc chắc thực hiện điều chỉnh hóa đơn với tổng tiền 2 tờ như sau: hóa đơn cũ "+ olMount +' + hóa đơn mới ('+ newAmount.format(4,3, typeCurrency.format(4,3, typeCurrency)) + ') = '+newTotla.format(4,3, typeCurrency) )
+
+        if(!confimOK && location.pathname == '/AdJust/CreateAdJustInv'){
+            return false
         }
         
   var VNPT_localization = localStorage.getItem("VNPT_localization"); 
