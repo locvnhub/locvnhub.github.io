@@ -18,7 +18,7 @@ this.submit = function () {
     var newTotla = olMount + newAmount
 
     if( location.pathname == '/AdJust/CreateAdJustInv'){
-        var confimOK = confirm("Bạn đang chắc chắc thực hiện điều chỉnh hóa đơn với tổng tiền 2 tờ như sau: hóa đơn cũ "+ olMount +' + hóa đơn mới ('+ newAmount.format(4,3,typeCurrency) + ') = ' + newTotla.format(4,3, typeCurrency) )
+        var confimOK = confirm("Bạn đang chắc chắc thực hiện điều chỉnh hóa đơn với tổng tiền 2 tờ như sau: hóa đơn cũ "+ olMount.format(4,3,typeCurrency) +' + hóa đơn mới ('+ newAmount.format(4,3,typeCurrency) + ') = ' + newTotla.format(4,3, typeCurrency) )
 
         if(!confimOK  ){
             return false
