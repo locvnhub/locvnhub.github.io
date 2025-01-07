@@ -1,0 +1,8 @@
+[alias]
+co = checkout
+br = branch
+ci = commit
+st = status
+save = git commit  -am"" && git push origin
+
+git config  alias.save 'commit  -am"ok" &&  push origin'
