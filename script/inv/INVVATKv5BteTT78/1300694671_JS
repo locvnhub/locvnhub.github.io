@@ -1,0 +1,96 @@
+$('#Total').closest('.line').hide();
+$('#VATRateItem').closest('.line').hide();
+$('#VATAmount').closest('.line').hide();
+$('#Amount').closest('.line').hide();
+$('#thueKhacId').closest('.w60p').hide();
+
+var DIV__THEM = ` 
+<div class="left w60p TotalPanelLeft"><div class="line " data-pos="" style="margin-top: 3em;"> <div class="label push-60 "> <label>Tỷ lệ phí phục vụ (%) </label></div><div class="control"><input type="text" title="Extra1" class="" name="Extra1" id="Extra1" style="width: 5em;"></div></div>
+<div class="line null  ">
+<div class="label ">
+<span>Ẩn các mục giảm trừ</span>
+<input type="checkbox" id="hideDiscountOpt">
+</div>
+</div>
+<div class="line null hidden "> </div>
+<div class="line null "> </div>
+<div class="line null "> </div>
+<div class="line   ">
+<div class="label push-60">
+<label>Thuế GTGT</label>
+</div>
+<div class="control">
+<select id="VATRateItem" name="VATRateItem" title="Cần chọn!"><option value="-1">Không thuế GTGT</option>
+<option value="-2">Không kê khai và nộp thuế</option>
+<option selected="selected" value="0">0% </option>
+<option value="5">5%</option>
+<option value="8">8%</option>
+<option value="10">10%</option>
+<option value="-99">Khác</option>
+</select><input data-val="true" data-val-number="The field VATRate must be a number." data-val-required="The VATRate field is required." id="VATRate" name="VATRate" type="hidden" value="0">
+</div>
+</div>                
+<div class="line" hidden="" id="thueKhacId" style="display: none;">
+<div class="label push-60">
+<label>Hãy nhập thuế suất khác</label>
+</div>
+<div class="control">
+<input type="text" id="VATRateF" class="textr _number groupTotal" placeholder="##,##" maxlength="5" value="0" onchange="ChangeVATRateF();" onpaste="return false;">
+</div>
+</div>
+</div>	
+
+<div class="right TotalPanelRight">
+<div class="line  hidden " title="Tổng tiền chiết khấu = Tổng tiền cột 'Số Tiền Chiết Khấu' + Thành tiền sản phẩm có tính chất chiết khấu">
+<div class="label w180">
+<label class="DiscountAmount">Tổng tiền chiết khấu</label>
+</div>
+<div class="control">
+<input class="textr _number groupTotal" data-val="true" data-val-number="The field DiscountAmount must be a number." data-val-required="The DiscountAmount field is required." id="DiscountAmount" name="DiscountAmount" tabindex="-1" type="text" value="0">
+</div>
+</div>               
+<div class="line " data-pos=""> <div class="label w180 "> <label>Cộng (Total) </label></div><div class="control"><input type="text" title="Extra" class="_number textr groupTotal" name="Extra" id="Extra"></div></div><div class="line " data-pos=""> <div class="label w180 "> <label>Tiền phí phục vụ </label></div><div class="control"><input type="text" title="Extra2" class="_number textr groupTotal" name="Extra2" id="Extra2"></div></div><div class="line  ">
+<div class="label w180">
+<label class="Total">Tổng tiền chưa thuế</label>
+</div>
+<div class="control">
+<input class="textr _number groupTotal" data-val="true" data-val-number="The field Total must be a number." data-val-required="The Total field is required." id="Total" name="Total" tabindex="-1" type="text" value="0">
+</div>
+</div>               
+<div class="line" title="Tiền thuế = (Tổng tiền chưa thuế - Tổng giảm trừ không chịu thuế )  X  %thuế suất ">
+<div class="label w260">
+<label class="DiscountNonTax">Tổng giảm trừ không chịu thuế</label>
+</div>
+<div class="control">
+<input class="textr _number groupTotal" data-val="true" data-val-number="The field DiscountNonTax must be a number." id="DiscountNonTax" name="DiscountNonTax" tabindex="-1" type="text" value="">
+</div>
+</div>            
+<div class="line ">
+<div class="label w180">
+<label for="VATAmount">Tiền thuế GTGT</label>
+</div>
+<div class="control"> 
+<input class="textr _number groupTotal" data-val="true" data-val-number="The field VATAmount must be a number." data-val-required="The VATAmount field is required." id="VATAmount" name="VATAmount" tabindex="-1" type="text" value="0">
+</div>
+</div>           
+<div class="line" title="Tổng giảm trừ khác: Là số tiền sẽ trừ vào 'Tổng tiền bao gồm thuế' của hóa đơn">
+<div class="label w180">
+<label class="DiscountOther">Tổng giảm trừ khác</label>
+</div>
+<div class="control">
+<input class="textr _number groupTotal" data-val="true" data-val-number="The field DiscountOther must be a number." id="DiscountOther" name="DiscountOther" tabindex="-1" type="text" value="">
+</div>
+</div>
+<div class="line">
+<div class="label w180">
+<label class="Amount">Tổng cộng tiền thanh toán</label>
+</div>
+<div class="control">
+<input type="text" name="Amount" id="Amount" value="0" class="textr _number groupTotal">
+</div>
+</div>
+<div id="searchAutocomplete"><ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-2" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-3" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-124" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-125" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-126" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-127" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-128" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-129" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-130" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-131" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-132" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-133" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-134" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-135" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-136" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-137" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-138" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-139" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-140" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-141" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-142" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><ul id="ui-id-143" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul></div>
+<div id="searchAutocompleteResource"></div>
+</div>
+`
+$('table.products').after(DIV__THEM)
